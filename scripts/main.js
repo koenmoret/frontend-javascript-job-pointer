@@ -114,14 +114,13 @@ for(let i = 0; i < jobs.length; i++){
    }
 }
 
-if(!chosenJob) {
-    showError();
-}
-
 if(chosenJob && departmentDescription && jobsDescription) {
     document.getElementById('role-title').textContent = chosenJob;
     document.getElementById('department-description').textContent = departmentDescription;
     document.getElementById('role-description').textContent = jobsDescription;
+    document.getElementById('refresh').style.visibility='visible';
+}else {
+    showError();
 }
 
 function showError() {
