@@ -71,4 +71,62 @@ const departments = {
     }
 }
 
-console.log(departments);
+const sales = departments.sales;
+const marketing = departments.marketing;
+const customerService = departments['customer-service'];
+let chosenJob = false;
+let departmentDescription = '';
+let jobsDescription = '';
+let errorMessage = '';
+
+let userInput = prompt('Over welke afdeling wil je meer informatie? \n(Marketing / Sales / Customer-Service)');
+
+switch(userInput.toLowerCase()) {
+    case 'marketing':
+        departmentDescription = marketing.description;
+        job = 'marketing';
+        break;
+    case 'sales':
+        departmentDescription = sales.description;
+        job = 'sales';
+        break;
+    case 'customer-service':
+        departmentDescription = customerService.description;
+        job = 'customer-service';
+        break;
+    default:
+        showError();
+}
+
+const jobs = departments[job].jobs;
+let jobString = '';
+for(let i=0;i <jobs.length;i++){
+    jobString += i +" "+jobs[i].title+"\n";
+}
+
+userInput = prompt("Je koos voor "+job+". Over welke functie wil je meer weten? " +
+    "Voer een getal tussen 0 en "+(jobs.length -1)+" in. \n\n"+jobString);
+
+for(let i = 0; i < jobs.length; i++){
+   if(i == parseInt(userInput)) {
+       chosenJob = jobs[i].title;
+       jobsDescription = jobs[i].description;
+   }
+}
+
+if(chosenJob && departmentDescription && jobsDescription) {
+    document.getElementById('role-title').textContent = chosenJob;
+    document.getElementById('department-description').textContent = departmentDescription;
+    document.getElementById('role-description').textContent = jobsDescription;
+    document.getElementById('refresh').style.visibility='visible';
+}else {
+    showError();
+}
+
+function showError() {
+    errorMessage = "Ongeldige keuze. Probeer het opnieuw door de pagina te verversen.\n";
+    document.getElementById('error-message').textContent = errorMessage;
+    document.getElementById('refresh').style.visibility='visible';
+}
+
+
